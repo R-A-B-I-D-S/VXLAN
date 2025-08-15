@@ -46,8 +46,8 @@ Client-4|Eth0|192.168.5.2|255.255.255.0|192.168.5.1
 
 ### PTP link
 
-IP subnet|Subnet Mask|Description
-|---|---|---|---|---|
+|IP subnet|Subnet Mask|Description
+|---|---|---|
 172.16.1.0|255.255.255.252|Leaf1-Spine1
 172.16.2.0|255.255.255.252|Leaf1-Spine2
 172.16.3.0|255.255.255.252|Leaf2-Spine1
@@ -55,10 +55,11 @@ IP subnet|Subnet Mask|Description
 172.16.5.0|255.255.255.252|Leaf3-Spine1
 172.16.6.0|255.255.255.252|Leaf3-Spine2
 
-###Loopback link
+
+### Loopback link
 
 |Device|IP Address|Subnet Mask
-|---|---|---|---|---|
+|---|---|---|
 Leaf-1|1.1.1.1|255.255.255.255
 Leaf-2|1.1.1.2|255.255.255.255
 Leaf-3|1.1.1.3|255.255.255.255
@@ -66,10 +67,10 @@ Spine-1|2.2.2.1|255.255.255.255
 Spine-2|2.2.2.2|255.255.255.255
 
 
-###Management link
+### Management link
 
 |Device|IP Address|Subnet Mask
-|---|---|---|---|---|
+|---|---|---|
 Leaf-1|192.168.10.1|255.255.255.0
 Leaf-2|192.168.10.2|255.255.255.0
 Leaf-3|192.168.10.3|255.255.255.0
