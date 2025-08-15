@@ -110,7 +110,7 @@ Management1     192.168.10.2/24     up         up               1500
 #### Настройка Leaf-3
 
 ```
- Leaf-2#show ip interface brief
+ Leaf-3#show ip interface brief
                                                                         Address
 Interface       IP Address          Status     Protocol          MTU    Owner
 --------------- ------------------- ---------- ------------- ---------- -------
@@ -126,7 +126,7 @@ Management1     192.168.10.3/24     up         up               1500
 #### Настройка Spine-1
 
 ```
- Leaf-2#show ip interface brief
+ Spine-1#show ip interface brief
                                                                         Address
 Interface       IP Address          Status     Protocol          MTU    Owner
 --------------- ------------------- ---------- ------------- ---------- -------
@@ -140,7 +140,7 @@ Management1     192.168.10.4/24     up         up               1500
 #### Настройка Spine-2
 
 ```
- Leaf-2#show ip interface brief
+ Spine-2#show ip interface brief
                                                                         Address
 Interface       IP Address          Status     Protocol          MTU    Owner
 --------------- ------------------- ---------- ------------- ---------- -------
