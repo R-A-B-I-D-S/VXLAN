@@ -304,7 +304,7 @@ Super_Spine2|3.3.3.2|255.255.255.255
 
 ### Схема underlay сети OSPF
 
-![Схема underlay сети](isis_scheme .png)
+![Схема underlay сети](isis_scheme.png)
 
 
 ### 3 Убедитесь в наличии IP связанности между устройствами в OSFP домене
