@@ -93,7 +93,7 @@ router isis 1
 leaf-4#
 ```
 ### Настройка Leaf-5
-
+```
 leaf-5#show running-config section isis
 interface Ethernet1
    isis enable 1
