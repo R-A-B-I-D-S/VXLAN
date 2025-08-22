@@ -1,0 +1,73 @@
+Spine-2#show running-config
+! Command: show running-config
+! device: Spine-2 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model ribd
+!
+hostname Spine-2
+!
+spanning-tree mode mstp
+!
+interface Ethernet1
+   no switchport
+   ip address 172.16.4.1/31
+   isis enable 1
+   isis circuit-type level-1
+   isis network point-to-point
+!
+interface Ethernet2
+   no switchport
+   ip address 172.16.2.1/31
+   isis enable 1
+   isis circuit-type level-1
+   isis network point-to-point
+!
+interface Ethernet3
+   no switchport
+   ip address 172.16.6.1/31
+   isis enable 1
+   isis circuit-type level-1
+   isis network point-to-point
+!
+interface Ethernet4
+   no switchport
+   ip address 172.16.11.0/31
+   isis enable 1
+   isis circuit-type level-2
+   isis network point-to-point
+!
+interface Ethernet5
+   no switchport
+   ip address 172.16.12.0/31
+   isis enable 1
+   isis circuit-type level-2
+   isis network point-to-point
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Loopback1
+   ip address 2.2.2.2/32
+   isis enable 1
+!
+interface Management1
+!
+ip routing
+!
+route-map L1 permit 10
+!
+router isis 1
+   net 49.0001.7777.7777.7777.00
+   !
+   address-family ipv4 unicast
+!
+end
