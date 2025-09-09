@@ -302,7 +302,7 @@ Super_Spine1|3.3.3.1|255.255.255.255
 Super_Spine2|3.3.3.2|255.255.255.255
 
 
-### Схема underlay сети OSPF
+### Схема underlay сети ISIS
 
 ![Схема underlay сети](isis_scheme.png)
 
