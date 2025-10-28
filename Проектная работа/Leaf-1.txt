@@ -1,8 +1,8 @@
 Leaf-1#show running-config
-! Command show running-config
-! device Leaf-1 (vEOS-lab, EOS-4.29.2F)
+! Command: show running-config
+! device: Leaf-1 (vEOS-lab, EOS-4.29.2F)
 !
-! boot system flashvEOS-lab.swi
+! boot system flash:/vEOS-lab.swi
 !
 no aaa root
 !
@@ -14,27 +14,34 @@ hostname Leaf-1
 !
 spanning-tree mode mstp
 !
-vlan 100
-   name VNI-100100
+vlan 10
+   name VNI-10010
 !
 vrf instance VRF1
 !
+interface Port-Channel1
+   description link-to-Server1
+   switchport mode trunk
+   !
+   evpn ethernet-segment
+      identifier 0000:0000:0000:0000:1201
+      route-target import 00:00:00:00:12:01
+   lacp system-id 0000.0000.1201
+!
 interface Ethernet1
+!
+interface Ethernet2
+!
+interface Ethernet3
    no switchport
    ip address 172.16.1.0/31
 !
-interface Ethernet2
+interface Ethernet4
    no switchport
    ip address 172.16.2.0/31
 !
-interface Ethernet3
-   switchport access vlan 100
-!
-interface Ethernet4
-   no switchport
-   ip address 172.16.3.0/31
-!
 interface Ethernet5
+   channel-group 1 mode active
 !
 interface Ethernet6
 !
@@ -43,31 +50,31 @@ interface Ethernet7
 interface Ethernet8
 !
 interface Loopback0
-   ip address 1.1.2.1/32
+   ip address 1.1.1.1/32
 !
 interface Loopback1
-   ip address 1.1.1.1/32
+   ip address 1.1.2.1/32
 !
 interface Management1
 !
-interface Vlan100
+interface Vlan10
    vrf VRF1
-   ip address virtual 10.0.100.1/24
+   ip address virtual 10.0.10.1/24
 !
 interface Vxlan1
    vxlan source-interface Loopback1
    vxlan udp-port 4789
-   vxlan vlan 100 vni 100100
+   vxlan vlan 10 vni 10010
    vxlan vrf VRF1 vni 999
    vxlan learn-restrict any
 !
-ip virtual-router mac-address deaddeaddead
+ip virtual-router mac-address de:ad:de:ad:de:ad
 !
 ip routing
 ip routing vrf VRF1
 !
-ip prefix-list LOCAL_NETWORK seq 5 permit 1.1.1.132
-ip prefix-list LOCAL_NETWORK seq 6 permit 1.1.2.132
+ip prefix-list LOCAL_NETWORK seq 5 permit 1.1.1.1/32
+ip prefix-list LOCAL_NETWORK seq 6 permit 1.1.2.1/32
 !
 route-map ADVERT_NET permit 10
    match ip address prefix-list LOCAL_NETWORK
@@ -76,7 +83,7 @@ peer-filter UNDERLAY
 !
 router bgp 65100
    router-id 1.1.1.1
-   maximum-paths 3 ecmp 3
+   maximum-paths 2 ecmp 2
    neighbor OVERLAY peer group
    neighbor OVERLAY remote-as 65200
    neighbor OVERLAY update-source Loopback0
@@ -84,18 +91,15 @@ router bgp 65100
    neighbor OVERLAY send-community extended
    neighbor UNDERLAY peer group
    neighbor UNDERLAY remote-as 65200
-   neighbor UNDERLAY bfd
    neighbor 2.2.2.1 peer group OVERLAY
    neighbor 2.2.2.2 peer group OVERLAY
-   neighbor 2.2.2.3 peer group OVERLAY
    neighbor 172.16.1.1 peer group UNDERLAY
    neighbor 172.16.2.1 peer group UNDERLAY
-   neighbor 172.16.3.1 peer group UNDERLAY
    redistribute connected route-map ADVERT_NET
    !
-   vlan 100
+   vlan 10
       rd auto
-      route-target both 100:100100
+      route-target both 10:10010
       redistribute learned
    !
    address-family evpn
@@ -103,7 +107,7 @@ router bgp 65100
    !
    vrf VRF1
       rd 1.1.1.1:999
-      route-target import evpn 999:100999
-      route-target export evpn 999:100999
+      route-target import evpn 999:10999
+      route-target export evpn 999:10999
 !
 end

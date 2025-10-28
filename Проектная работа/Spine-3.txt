@@ -1,0 +1,70 @@
+Spine-3#show running-config
+! Command: show running-config
+! device: Spine-3 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname Spine-3
+!
+spanning-tree mode mstp
+!
+interface Ethernet1
+!
+interface Ethernet2
+!
+interface Ethernet3
+   no switchport
+   ip address 172.16.13.1/31
+!
+interface Ethernet4
+   no switchport
+   ip address 172.16.9.1/31
+!
+interface Ethernet5
+   no switchport
+   ip address 172.16.11.1/31
+!
+interface Ethernet6
+   no switchport
+   ip address 172.16.15.1/31
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Loopback0
+   ip address 2.2.2.3/32
+!
+interface Management1
+!
+ip routing
+!
+ip as-path access-list RM_BGP permit ^651([0-4][0-9]|50|00)$ any
+!
+peer-filter ASN_LEAFS
+   10 match as-range 65100-65150 result accept
+!
+router bgp 65300
+   router-id 2.2.2.3
+   bgp listen range 1.1.0.0/16 peer-group OVERLAY peer-filter ASN_LEAFS
+   bgp listen range 172.16.0.0/20 peer-group UNDERLAY peer-filter ASN_LEAFS
+   neighbor OVERLAY peer group
+   neighbor OVERLAY next-hop-unchanged
+   neighbor OVERLAY update-source Loopback0
+   neighbor OVERLAY ebgp-multihop 10
+   neighbor OVERLAY send-community extended
+   neighbor UNDERLAY peer group
+   !
+   address-family evpn
+      neighbor OVERLAY activate
+   !
+   address-family ipv4
+      network 2.2.2.3/32
+!
+end

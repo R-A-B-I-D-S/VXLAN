@@ -1,0 +1,52 @@
+SERVER-4#show running-config
+! Command: show running-config
+! device: SERVER-4 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model ribd
+!
+hostname SERVER-4
+!
+spanning-tree mode mstp
+!
+vlan 20
+!
+interface Port-Channel1
+   description LINK-TO-LEAFS78
+   switchport mode trunk
+!
+interface Ethernet1
+!
+interface Ethernet2
+!
+interface Ethernet3
+!
+interface Ethernet4
+   description Link-to-LEAF-8
+   channel-group 1 mode active
+!
+interface Ethernet5
+   description Link-to-LEAF-7
+   channel-group 1 mode active
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Management1
+!
+interface Vlan20
+   ip address 10.0.20.2/24
+!
+ip routing
+!
+ip route 0.0.0.0/0 10.0.20.1
+!
+end
