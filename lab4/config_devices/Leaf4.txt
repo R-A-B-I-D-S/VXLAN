@@ -1,0 +1,61 @@
+Leaf-4#show running-config
+! Command: show running-config
+! device: Leaf-4 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model ribd
+!
+hostname Leaf-4
+!
+spanning-tree mode mstp
+!
+interface Ethernet1
+   no switchport
+   ip address 172.16.12.0/31
+!
+interface Ethernet2
+!
+interface Ethernet3
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+   no switchport
+   ip address 172.16.11.0/31
+!
+interface Ethernet7
+   no switchport
+   ip address 172.16.10.0/31
+!
+interface Ethernet8
+!
+interface Loopback1
+   ip address 1.1.1.4/32
+!
+interface Management1
+!
+ip routing
+!
+ip prefix-list LOOPBACK_NETWORK seq 5 permit 1.1.1.4/32
+!
+route-map ADVERT_NET permit 10
+   match ip address prefix-list LOOPBACK_NETWORK
+!
+router bgp 65104
+   router-id 1.1.1.4
+   neighbor UNDERLAY peer group
+   neighbor UNDERLAY remote-as 65200
+   neighbor UNDERLAY bfd
+   neighbor 172.16.10.1 peer group UNDERLAY
+   neighbor 172.16.11.1 peer group UNDERLAY
+   neighbor 172.16.12.1 peer group UNDERLAY
+   redistribute connected route-map ADVERT_NET
+!
+end
