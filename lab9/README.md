@@ -1,47 +1,47 @@
-\# VXLAN. Multihoming.
+# VXLAN. Multihoming.
 
 
 
-\## Планы работ:
+## Планы работ:
 
-\- 1:  Зафиксировать адресное пространство, схему сети, конфигурацию устройств
+- 1:  Зафиксировать адресное пространство, схему сети, конфигурацию устройств
 
-\- 2:  Настроите агрегированный канал со стороны клиента
+- 2:  Настроите агрегированный канал со стороны клиента
 
-\- 3:  Настроите multihoming для работы в Overlay сети
+- 3:  Настроите multihoming для работы в Overlay сети
 - 4:  Опционально - протестировать отказоустойчивость - убедиться, что связнность не теряется при отключении одного из линков
 
 
 
-\## Схема сети:
-!\[](Scheme.png)
+## Схема сети:
+![](Scheme.png)
 
 
-\## Конфигурации устройств:
+## Конфигурации устройств:
 
-&nbsp; - \[spine-1](Config/spine-1.cfg)
+ - [spine-1](Config/spine-1.cfg)
 
-&nbsp; - \[spine-2](Config/spine-2.cfg)
+ - [spine-2](Config/spine-2.cfg)
 
-&nbsp; - \[leaf-1](Config/leaf-1.cfg)
+ - [leaf-1](Config/leaf-1.cfg)
 
-&nbsp; - \[leaf-2](Config/leaf-2.cfg)
+ - [leaf-2](Config/leaf-2.cfg)
 
-&nbsp; - \[leaf-3](Config/leaf-3.cfg)
+ - [leaf-3](Config/leaf-3.cfg)
 
-&nbsp; - \[leaf-4](Config/leaf-4.cfg)
+ - [leaf-4](Config/leaf-4.cfg)
 
-&nbsp; - \[server-1](Config/server-1.cfg)
+ - [server-1](Config/server-1.cfg)
 
-&nbsp; - \[server-2](Config/server-2.cfg)
-
-
-
-\## 1 Зафиксированное адресное пространство
+ - [server-2](Config/server-2.cfg)
 
 
 
-\### PTP link
+## 1 Зафиксированное адресное пространство
+
+
+
+### PTP link
 
 
 
@@ -70,7 +70,7 @@
 
 
 
-\### Loopback link
+### Loopback link
 
 
 
@@ -103,7 +103,7 @@ Spine-2|2.2.2.2|255.255.255.255
 
 
 
-\### VLAN-10
+### VLAN-10
 
 
 
@@ -128,23 +128,23 @@ SERVER-1#show lacp peer
 
 State: A = Active, P = Passive; S=ShortTimeout, L=LongTimeout;
 
-&nbsp;      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
+      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
 
-&nbsp;      C = Collecting, X = state machine expired,
+      C = Collecting, X = state machine expired,
 
-&nbsp;      D = Distributing, d = default neighbor state
+      D = Distributing, d = default neighbor state
 
-&nbsp;                |                        Partner
+                |                        Partner
 
-&nbsp;Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
+Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
 
 ------ ----------|------------------------- ------- --------- --------- -------
 
 Port Channel Port-Channel1:
 
-&nbsp;Et1     Bundled | 8000,00-00-00-00-12-01        1   ALGs+CD    0x0001    32768
+Et1     Bundled | 8000,00-00-00-00-12-01        1   ALGs+CD    0x0001    32768
 
-&nbsp;Et2     Bundled | 8000,00-00-00-00-12-01        2   ALGs+CD    0x0001    32768
+Et2     Bundled | 8000,00-00-00-00-12-01        2   ALGs+CD    0x0001    32768
 
 
 SERVER-1#
@@ -158,29 +158,29 @@ SERVER-2#show port-channel brief
 
 Port Channel Port-Channel1:
 
-&nbsp; Active Ports: Ethernet1 Ethernet2
+ Active Ports: Ethernet1 Ethernet2
 
 SERVER-2#show lacp peer
 
 State: A = Active, P = Passive; S=ShortTimeout, L=LongTimeout;
 
-&nbsp;      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
+      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
 
-&nbsp;      C = Collecting, X = state machine expired,
+      C = Collecting, X = state machine expired,
 
-&nbsp;      D = Distributing, d = default neighbor state
+      D = Distributing, d = default neighbor state
 
-&nbsp;                |                        Partner
+                |                        Partner
 
-&nbsp;Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
+Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
 
 ------ ----------|------------------------- ------- --------- --------- -------
 
 Port Channel Port-Channel1:
 
-&nbsp;Et1     Bundled | 8000,00-00-00-00-34-01        1   ALGs+CD    0x0001    32768
+Et1     Bundled | 8000,00-00-00-00-34-01        1   ALGs+CD    0x0001    32768
 
-&nbsp;Et2     Bundled | 8000,00-00-00-00-34-01        2   ALGs+CD    0x0001    32768
+Et2     Bundled | 8000,00-00-00-00-34-01        2   ALGs+CD    0x0001    32768
 
 
 
@@ -192,7 +192,7 @@ SERVER-2#
 
 
 
-\### Leaf-1:
+### Leaf-1:
 
 
 
@@ -221,21 +221,21 @@ Leaf-1#show lacp peer
 
 State: A = Active, P = Passive; S=ShortTimeout, L=LongTimeout;
 
-&nbsp;      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
+      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
 
-&nbsp;      C = Collecting, X = state machine expired,
+      C = Collecting, X = state machine expired,
 
-&nbsp;      D = Distributing, d = default neighbor state
+      D = Distributing, d = default neighbor state
 
-&nbsp;                |                        Partner
+                |                        Partner
 
-&nbsp;Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
+Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
 
 ------ ----------|------------------------- ------- --------- --------- -------
 
 Port Channel Port-Channel1:
 
-&nbsp;Et2     Bundled | 8000,50-01-00-9b-56-6c        2   ALGs+CD    0x0001    32768
+Et2     Bundled | 8000,50-01-00-9b-56-6c        2   ALGs+CD    0x0001    32768
 
 
 
@@ -245,9 +245,9 @@ BGP routing table information for VRF default
 
 Router identifier 1.1.1.1, local AS number 65200
 
-Route status codes: \* - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
 
-&nbsp;                   c - Contributing to ECMP, % - Pending BGP convergence
+                   c - Contributing to ECMP, % - Pending BGP convergence
 
 Origin codes: i - IGP, e - EGP, ? - incomplete
 
@@ -255,102 +255,102 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 
 
-&nbsp;         Network                Next Hop              Metric  LocPref Weight  Path
+         Network                Next Hop              Metric  LocPref Weight  Path
 
-&nbsp;\* >      RD: 1.1.1.1:10 auto-discovery 0 0000:0000:0000:0000:1201
+* >      RD: 1.1.1.1:10 auto-discovery 0 0000:0000:0000:0000:1201
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >      RD: 1.1.2.1:1 auto-discovery 0000:0000:0000:0000:1201
+* >      RD: 1.1.2.1:1 auto-discovery 0000:0000:0000:0000:1201
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >Ec    RD: 1.1.1.3:10 auto-discovery 0 0000:0000:0000:0000:3401
+* >Ec    RD: 1.1.1.3:10 auto-discovery 0 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.1.3:10 auto-discovery 0 0000:0000:0000:0000:3401
+*  ec    RD: 1.1.1.3:10 auto-discovery 0 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.1.4:10 auto-discovery 0 0000:0000:0000:0000:3401
+* >Ec    RD: 1.1.1.4:10 auto-discovery 0 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.1.4:10 auto-discovery 0 0000:0000:0000:0000:3401
+*  ec    RD: 1.1.1.4:10 auto-discovery 0 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.2.3:1 auto-discovery 0000:0000:0000:0000:3401
+* >Ec    RD: 1.1.2.3:1 auto-discovery 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.2.3:1 auto-discovery 0000:0000:0000:0000:3401
+*  ec    RD: 1.1.2.3:1 auto-discovery 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.2.4:1 auto-discovery 0000:0000:0000:0000:3401
+* >Ec    RD: 1.1.2.4:1 auto-discovery 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.2.4:1 auto-discovery 0000:0000:0000:0000:3401
+*  ec    RD: 1.1.2.4:1 auto-discovery 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.1.3:10 mac-ip 5001.0026.397b
+* >Ec    RD: 1.1.1.3:10 mac-ip 5001.0026.397b
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.1.3:10 mac-ip 5001.0026.397b
+*  ec    RD: 1.1.1.3:10 mac-ip 5001.0026.397b
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\* >      RD: 1.1.1.1:10 imet 1.1.2.1
+* >      RD: 1.1.1.1:10 imet 1.1.2.1
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >Ec    RD: 1.1.1.3:10 imet 1.1.2.3
+* >Ec    RD: 1.1.1.3:10 imet 1.1.2.3
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.1.3:10 imet 1.1.2.3
+*  ec    RD: 1.1.1.3:10 imet 1.1.2.3
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.1.4:10 imet 1.1.2.4
+* >Ec    RD: 1.1.1.4:10 imet 1.1.2.4
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.1.4:10 imet 1.1.2.4
+*  ec    RD: 1.1.1.4:10 imet 1.1.2.4
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\* >      RD: 1.1.2.1:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.1
+* >      RD: 1.1.2.1:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.1
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >Ec    RD: 1.1.2.3:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.3
+* >Ec    RD: 1.1.2.3:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.3
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.2.3:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.3
+*  ec    RD: 1.1.2.3:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.3
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.2.4:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.4
+* >Ec    RD: 1.1.2.4:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.4
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.2.4:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.4
+*  ec    RD: 1.1.2.4:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.4
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
 Leaf-1#
 
 ```
 
 
-\### Leaf-2:
+### Leaf-2:
 
 ```
 Leaf-2#show vxlan vtep
@@ -375,21 +375,21 @@ Leaf-2#show lacp peer
 
 State: A = Active, P = Passive; S=ShortTimeout, L=LongTimeout;
 
-&nbsp;      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
+      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
 
-&nbsp;      C = Collecting, X = state machine expired,
+      C = Collecting, X = state machine expired,
 
-&nbsp;      D = Distributing, d = default neighbor state
+      D = Distributing, d = default neighbor state
 
-&nbsp;                |                        Partner
+                |                        Partner
 
-&nbsp;Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
+Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
 
 ------ ----------|------------------------- ------- --------- --------- -------
 
 Port Channel Port-Channel1:
 
-&nbsp;Et1     Bundled | 8000,50-01-00-9b-56-6c        1   ALGs+CD    0x0001    32768
+Et1     Bundled | 8000,50-01-00-9b-56-6c        1   ALGs+CD    0x0001    32768
 
 
 
@@ -399,9 +399,9 @@ BGP routing table information for VRF default
 
 Router identifier 1.1.1.2, local AS number 65200
 
-Route status codes: \* - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
 
-&nbsp;                   c - Contributing to ECMP, % - Pending BGP convergence
+                   c - Contributing to ECMP, % - Pending BGP convergence
 
 Origin codes: i - IGP, e - EGP, ? - incomplete
 
@@ -409,103 +409,103 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 
 
-&nbsp;         Network                Next Hop              Metric  LocPref Weight  Path
+         Network                Next Hop              Metric  LocPref Weight  Path
 
-&nbsp;\* >      RD: 1.1.1.2:10 auto-discovery 0 0000:0000:0000:0000:1201
+* >      RD: 1.1.1.2:10 auto-discovery 0 0000:0000:0000:0000:1201
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >      RD: 1.1.2.2:1 auto-discovery 0000:0000:0000:0000:1201
+* >      RD: 1.1.2.2:1 auto-discovery 0000:0000:0000:0000:1201
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >Ec    RD: 1.1.1.3:10 auto-discovery 0 0000:0000:0000:0000:3401
+* >Ec    RD: 1.1.1.3:10 auto-discovery 0 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.1.3:10 auto-discovery 0 0000:0000:0000:0000:3401
+*  ec    RD: 1.1.1.3:10 auto-discovery 0 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.1.4:10 auto-discovery 0 0000:0000:0000:0000:3401
+* >Ec    RD: 1.1.1.4:10 auto-discovery 0 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.1.4:10 auto-discovery 0 0000:0000:0000:0000:3401
+*  ec    RD: 1.1.1.4:10 auto-discovery 0 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.2.3:1 auto-discovery 0000:0000:0000:0000:3401
+* >Ec    RD: 1.1.2.3:1 auto-discovery 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.2.3:1 auto-discovery 0000:0000:0000:0000:3401
+*  ec    RD: 1.1.2.3:1 auto-discovery 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.2.4:1 auto-discovery 0000:0000:0000:0000:3401
+* >Ec    RD: 1.1.2.4:1 auto-discovery 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.2.4:1 auto-discovery 0000:0000:0000:0000:3401
+*  ec    RD: 1.1.2.4:1 auto-discovery 0000:0000:0000:0000:3401
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.1.3:10 mac-ip 5001.0026.397b
+* >Ec    RD: 1.1.1.3:10 mac-ip 5001.0026.397b
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.1.3:10 mac-ip 5001.0026.397b
+*  ec    RD: 1.1.1.3:10 mac-ip 5001.0026.397b
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\* >      RD: 1.1.1.2:10 mac-ip 5001.009b.566c
+* >      RD: 1.1.1.2:10 mac-ip 5001.009b.566c
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >      RD: 1.1.1.2:10 mac-ip 5001.009b.566c 10.0.10.2
+* >      RD: 1.1.1.2:10 mac-ip 5001.009b.566c 10.0.10.2
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >      RD: 1.1.1.2:10 imet 1.1.2.2
+* >      RD: 1.1.1.2:10 imet 1.1.2.2
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >Ec    RD: 1.1.1.3:10 imet 1.1.2.3
+* >Ec    RD: 1.1.1.3:10 imet 1.1.2.3
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.1.3:10 imet 1.1.2.3
+*  ec    RD: 1.1.1.3:10 imet 1.1.2.3
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.1.4:10 imet 1.1.2.4
+* >Ec    RD: 1.1.1.4:10 imet 1.1.2.4
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.1.4:10 imet 1.1.2.4
+*  ec    RD: 1.1.1.4:10 imet 1.1.2.4
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\* >      RD: 1.1.2.2:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.2
+* >      RD: 1.1.2.2:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.2
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >Ec    RD: 1.1.2.3:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.3
+* >Ec    RD: 1.1.2.3:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.3
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.2.3:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.3
+*  ec    RD: 1.1.2.3:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.3
 
-&nbsp;                                1.1.2.3               -       100     0       65100 65300 i
+                                1.1.2.3               -       100     0       65100 65300 i
 
-&nbsp;\* >Ec    RD: 1.1.2.4:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.4
+* >Ec    RD: 1.1.2.4:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.4
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
-&nbsp;\*  ec    RD: 1.1.2.4:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.4
+*  ec    RD: 1.1.2.4:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.4
 
-&nbsp;                                1.1.2.4               -       100     0       65100 65300 i
+                                1.1.2.4               -       100     0       65100 65300 i
 
 Leaf-2#
 
@@ -538,21 +538,21 @@ Leaf-3#show lacp peer
 
 State: A = Active, P = Passive; S=ShortTimeout, L=LongTimeout;
 
-&nbsp;      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
+      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
 
-&nbsp;      C = Collecting, X = state machine expired,
+      C = Collecting, X = state machine expired,
 
-&nbsp;      D = Distributing, d = default neighbor state
+      D = Distributing, d = default neighbor state
 
-&nbsp;                |                        Partner
+                |                        Partner
 
-&nbsp;Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
+Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
 
 ------ ----------|------------------------- ------- --------- --------- -------
 
 Port Channel Port-Channel1:
 
-&nbsp;Et1     Bundled | 8000,50-01-00-26-39-7b        1   ALGs+CD    0x0001    32768
+Et1     Bundled | 8000,50-01-00-26-39-7b        1   ALGs+CD    0x0001    32768
 
 
 
@@ -562,9 +562,9 @@ BGP routing table information for VRF default
 
 Router identifier 1.1.1.3, local AS number 65300
 
-Route status codes: \* - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
 
-&nbsp;                   c - Contributing to ECMP, % - Pending BGP convergence
+                   c - Contributing to ECMP, % - Pending BGP convergence
 
 Origin codes: i - IGP, e - EGP, ? - incomplete
 
@@ -572,107 +572,107 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 
 
-&nbsp;         Network                Next Hop              Metric  LocPref Weight  Path
+         Network                Next Hop              Metric  LocPref Weight  Path
 
-&nbsp;\* >Ec    RD: 1.1.1.1:10 auto-discovery 0 0000:0000:0000:0000:1201
+* >Ec    RD: 1.1.1.1:10 auto-discovery 0 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.1:10 auto-discovery 0 0000:0000:0000:0000:1201
+*  ec    RD: 1.1.1.1:10 auto-discovery 0 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.1.2:10 auto-discovery 0 0000:0000:0000:0000:1201
+* >Ec    RD: 1.1.1.2:10 auto-discovery 0 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.2:10 auto-discovery 0 0000:0000:0000:0000:1201
+*  ec    RD: 1.1.1.2:10 auto-discovery 0 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.2.1:1 auto-discovery 0000:0000:0000:0000:1201
+* >Ec    RD: 1.1.2.1:1 auto-discovery 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.2.1:1 auto-discovery 0000:0000:0000:0000:1201
+*  ec    RD: 1.1.2.1:1 auto-discovery 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.2.2:1 auto-discovery 0000:0000:0000:0000:1201
+* >Ec    RD: 1.1.2.2:1 auto-discovery 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.2.2:1 auto-discovery 0000:0000:0000:0000:1201
+*  ec    RD: 1.1.2.2:1 auto-discovery 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >      RD: 1.1.1.3:10 auto-discovery 0 0000:0000:0000:0000:3401
+* >      RD: 1.1.1.3:10 auto-discovery 0 0000:0000:0000:0000:3401
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >      RD: 1.1.2.3:1 auto-discovery 0000:0000:0000:0000:3401
+* >      RD: 1.1.2.3:1 auto-discovery 0000:0000:0000:0000:3401
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >      RD: 1.1.1.3:10 mac-ip 5001.0026.397b
+* >      RD: 1.1.1.3:10 mac-ip 5001.0026.397b
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >Ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c
+* >Ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c
+*  ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c 10.0.10.2
+* >Ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c 10.0.10.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c 10.0.10.2
+*  ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c 10.0.10.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.1.1:10 imet 1.1.2.1
+* >Ec    RD: 1.1.1.1:10 imet 1.1.2.1
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.1:10 imet 1.1.2.1
+*  ec    RD: 1.1.1.1:10 imet 1.1.2.1
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.1.2:10 imet 1.1.2.2
+* >Ec    RD: 1.1.1.2:10 imet 1.1.2.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.2:10 imet 1.1.2.2
+*  ec    RD: 1.1.1.2:10 imet 1.1.2.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >      RD: 1.1.1.3:10 imet 1.1.2.3
+* >      RD: 1.1.1.3:10 imet 1.1.2.3
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >Ec    RD: 1.1.2.1:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.1
+* >Ec    RD: 1.1.2.1:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.1
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.2.1:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.1
+*  ec    RD: 1.1.2.1:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.1
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.2.2:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.2
+* >Ec    RD: 1.1.2.2:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.2.2:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.2
+*  ec    RD: 1.1.2.2:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >      RD: 1.1.2.3:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.3
+* >      RD: 1.1.2.3:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.3
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
 Leaf-3#
 
@@ -705,21 +705,21 @@ Leaf-4#show lacp peer
 
 State: A = Active, P = Passive; S=ShortTimeout, L=LongTimeout;
 
-&nbsp;      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
+      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
 
-&nbsp;      C = Collecting, X = state machine expired,
+      C = Collecting, X = state machine expired,
 
-&nbsp;      D = Distributing, d = default neighbor state
+      D = Distributing, d = default neighbor state
 
-&nbsp;                |                        Partner
+                |                        Partner
 
-&nbsp;Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
+Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
 
 ------ ----------|------------------------- ------- --------- --------- -------
 
 Port Channel Port-Channel1:
 
-&nbsp;Et2     Bundled | 8000,50-01-00-26-39-7b        2   ALGs+CD    0x0001    32768
+Et2     Bundled | 8000,50-01-00-26-39-7b        2   ALGs+CD    0x0001    32768
 
 
 
@@ -729,9 +729,9 @@ BGP routing table information for VRF default
 
 Router identifier 1.1.1.4, local AS number 65300
 
-Route status codes: \* - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
 
-&nbsp;                   c - Contributing to ECMP, % - Pending BGP convergence
+                   c - Contributing to ECMP, % - Pending BGP convergence
 
 Origin codes: i - IGP, e - EGP, ? - incomplete
 
@@ -739,137 +739,137 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 
 
-&nbsp;         Network                Next Hop              Metric  LocPref Weight  Path
+         Network                Next Hop              Metric  LocPref Weight  Path
 
-&nbsp;\* >Ec    RD: 1.1.1.1:10 auto-discovery 0 0000:0000:0000:0000:1201
+* >Ec    RD: 1.1.1.1:10 auto-discovery 0 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.1:10 auto-discovery 0 0000:0000:0000:0000:1201
+*  ec    RD: 1.1.1.1:10 auto-discovery 0 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.1.2:10 auto-discovery 0 0000:0000:0000:0000:1201
+* >Ec    RD: 1.1.1.2:10 auto-discovery 0 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.2:10 auto-discovery 0 0000:0000:0000:0000:1201
+*  ec    RD: 1.1.1.2:10 auto-discovery 0 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.2.1:1 auto-discovery 0000:0000:0000:0000:1201
+* >Ec    RD: 1.1.2.1:1 auto-discovery 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.2.1:1 auto-discovery 0000:0000:0000:0000:1201
+*  ec    RD: 1.1.2.1:1 auto-discovery 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.2.2:1 auto-discovery 0000:0000:0000:0000:1201
+* >Ec    RD: 1.1.2.2:1 auto-discovery 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.2.2:1 auto-discovery 0000:0000:0000:0000:1201
+*  ec    RD: 1.1.2.2:1 auto-discovery 0000:0000:0000:0000:1201
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >      RD: 1.1.1.4:10 auto-discovery 0 0000:0000:0000:0000:3401
+* >      RD: 1.1.1.4:10 auto-discovery 0 0000:0000:0000:0000:3401
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >      RD: 1.1.2.4:1 auto-discovery 0000:0000:0000:0000:3401
+* >      RD: 1.1.2.4:1 auto-discovery 0000:0000:0000:0000:3401
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >Ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c
+* >Ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c
+*  ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c 10.0.10.2
+* >Ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c 10.0.10.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c 10.0.10.2
+*  ec    RD: 1.1.1.2:10 mac-ip 5001.009b.566c 10.0.10.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.1.1:10 imet 1.1.2.1
+* >Ec    RD: 1.1.1.1:10 imet 1.1.2.1
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.1:10 imet 1.1.2.1
+*  ec    RD: 1.1.1.1:10 imet 1.1.2.1
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.1.2:10 imet 1.1.2.2
+* >Ec    RD: 1.1.1.2:10 imet 1.1.2.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.1.2:10 imet 1.1.2.2
+*  ec    RD: 1.1.1.2:10 imet 1.1.2.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >      RD: 1.1.1.4:10 imet 1.1.2.4
+* >      RD: 1.1.1.4:10 imet 1.1.2.4
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
-&nbsp;\* >Ec    RD: 1.1.2.1:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.1
+* >Ec    RD: 1.1.2.1:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.1
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.2.1:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.1
+*  ec    RD: 1.1.2.1:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.1
 
-&nbsp;                                1.1.2.1               -       100     0       65100 65200 i
+                                1.1.2.1               -       100     0       65100 65200 i
 
-&nbsp;\* >Ec    RD: 1.1.2.2:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.2
+* >Ec    RD: 1.1.2.2:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\*  ec    RD: 1.1.2.2:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.2
+*  ec    RD: 1.1.2.2:1 ethernet-segment 0000:0000:0000:0000:1201 1.1.2.2
 
-&nbsp;                                1.1.2.2               -       100     0       65100 65200 i
+                                1.1.2.2               -       100     0       65100 65200 i
 
-&nbsp;\* >      RD: 1.1.2.4:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.4
+* >      RD: 1.1.2.4:1 ethernet-segment 0000:0000:0000:0000:3401 1.1.2.4
 
-&nbsp;                                -                     -       -       0       i
+                                -                     -       -       0       i
 
 Leaf-4#
 
 ```
 
 
-\## 4  Опционально - протестировать отказоустойчивость:
+## 4  Опционально - протестировать отказоустойчивость:
 
 
 
-\### SERVER-1:
+### SERVER-1:
 
 ```
 SERVER-1#show lacp peer
 
 State: A = Active, P = Passive; S=ShortTimeout, L=LongTimeout;
 
-&nbsp;      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
+      G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
 
-&nbsp;      C = Collecting, X = state machine expired,
+      C = Collecting, X = state machine expired,
 
-&nbsp;      D = Distributing, d = default neighbor state
+      D = Distributing, d = default neighbor state
 
-&nbsp;                |                        Partner
+                |                        Partner
 
-&nbsp;Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
+Port    Status  | Sys-id                    Port#   State     OperKey  PortPri
 
 ------ ----------|------------------------- ------- --------- --------- -------
 
 Port Channel Port-Channel1:
 
-&nbsp;Et1     Bundled | 8000,00-00-00-00-12-01        1   ALGs+CD    0x0001    32768
+Et1     Bundled | 8000,00-00-00-00-12-01        1   ALGs+CD    0x0001    32768
 
-&nbsp;Et2     Bundled | 8000,00-00-00-00-12-01        2   ALGs+CD    0x0001    32768
+Et2     Bundled | 8000,00-00-00-00-12-01        2   ALGs+CD    0x0001    32768
 
 
 
@@ -909,7 +909,7 @@ Po1               connected    trunk    full   1G     N/A
 
 SERVER-1#show ip interface brief
 
-&nbsp;                                                                       Address
+                                                                       Address
 
 Interface        IP Address        Status      Protocol          MTU    Owner
 
@@ -925,15 +925,15 @@ SERVER-1#ping 10.0.10.3
 
 PING 10.0.10.3 (10.0.10.3) 72(100) bytes of data.
 
-80 bytes from 10.0.10.3: icmp\_seq=1 ttl=64 time=47.4 ms
+80 bytes from 10.0.10.3: icmp_seq=1 ttl=64 time=47.4 ms
 
-80 bytes from 10.0.10.3: icmp\_seq=2 ttl=64 time=38.1 ms
+80 bytes from 10.0.10.3: icmp_seq=2 ttl=64 time=38.1 ms
 
-80 bytes from 10.0.10.3: icmp\_seq=3 ttl=64 time=29.2 ms
+80 bytes from 10.0.10.3: icmp_seq=3 ttl=64 time=29.2 ms
 
-80 bytes from 10.0.10.3: icmp\_seq=4 ttl=64 time=50.9 ms
+80 bytes from 10.0.10.3: icmp_seq=4 ttl=64 time=50.9 ms
 
-80 bytes from 10.0.10.3: icmp\_seq=5 ttl=64 time=47.6 ms
+80 bytes from 10.0.10.3: icmp_seq=5 ttl=64 time=47.6 ms
 
 
 
