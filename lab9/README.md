@@ -46,7 +46,6 @@
 
 
 |IP subnet|Subnet Mask|Description
-
 |---|---|---|
 172.16.1.0|255.255.255.254|Leaf1-Spine1
 172.16.2.0|255.255.255.254|Leaf1-Spine2
