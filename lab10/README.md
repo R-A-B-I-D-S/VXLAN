@@ -16,7 +16,7 @@
 
 ## Схема сети:
 
-! [](Scheme.png)
+![](Scheme.png)
 
 
 
